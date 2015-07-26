@@ -22,5 +22,8 @@ module TroyPeerless
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    config.facebook_appid = Rails.application.secrets.facebook_appid || ENV['FACEBOOK_APPID']
+    config.facebook_secret = Rails.application.secrets.facebook_secret || ENV['FACEBOOK_SECRET']
   end
 end
