@@ -1,0 +1,25 @@
+# == Schema Information
+#
+# Table name: unit_users
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  unit_id    :integer
+#  is_owner   :boolean
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  unit_id: 
+  is_owner: false
+  is_primary_contact: false
+
+two:
+  user_id: 
+  unit_id: 
+  is_owner: false
+  is_primary_contact: false

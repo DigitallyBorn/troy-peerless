@@ -7,6 +7,12 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
+  namespace :admin do
+    get 'users' => 'users#index'
+    get 'users/orphans' => 'users#orphans'
+    get 'users/:id' => 'users#show'
+  end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150726184119) do
+ActiveRecord::Schema.define(version: 20150726190547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,26 @@ ActiveRecord::Schema.define(version: 20150726184119) do
     t.integer "parking_spot_id", null: false
     t.integer "user_id",         null: false
   end
+
+  create_table "unit_users", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "unit_id"
+    t.boolean  "is_owner"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "unit_users", ["unit_id"], name: "index_unit_users_on_unit_id", using: :btree
+  add_index "unit_users", ["user_id"], name: "index_unit_users_on_user_id", using: :btree
+
+  create_table "units", force: :cascade do |t|
+    t.integer  "number"
+    t.integer  "floor"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "units", ["number"], name: "index_units_on_number", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -55,4 +75,6 @@ ActiveRecord::Schema.define(version: 20150726184119) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
 
+  add_foreign_key "unit_users", "units"
+  add_foreign_key "unit_users", "users"
 end

@@ -30,6 +30,16 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook]
 
+  has_and_belongs_to_many :parking_spots
+
+  def self.owners_and_residents
+    where('id IN (select user_id from unit_users)')
+  end
+
+  def self.orphans
+    where('id NOT IN (select user_id from unit_users)')
+  end
+
   def self.from_omniauth(auth)
      where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
        Rails.logger.warn auth.to_json
