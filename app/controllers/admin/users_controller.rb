@@ -4,7 +4,7 @@ class Admin::UsersController < ApplicationController
 
   def index
     authorize User
-    @users = User.owners_and_residents
+    @users = User.all
   end
 
   def show
@@ -18,11 +18,6 @@ class Admin::UsersController < ApplicationController
     @rents = @user.rents.map(&:unit).decorate
     authorize @user, :update?
     @units = Unit.all
-  end
-
-  def orphans
-    authorize User
-    @users = User.orphans
   end
 
   protected
