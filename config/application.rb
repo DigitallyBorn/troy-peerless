@@ -12,6 +12,8 @@ module TroyPeerless
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    config.secret_token = ENV['SECRET_TOKEN'] || '90bd41341e3773ec9a11fcb22e99f7ba01fe942c40993613334da60a9e8cd241ce3bfdd6704b6ce4ebe665331165f2f86cc61872422293a5f293318db9f8e5c8'
+
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
