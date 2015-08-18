@@ -1,12 +1,14 @@
 <h1><%= @user.name %></h1>
-<%= simple_form_for @user, url: 'edit_admin_user' do |f| %>
+<%= simple_form_for @user, url: admin_user_path(@user.id) do |f| %>
   <%= f.input :name %>
+  <%= f.input :email, as: :email %>
+  <%= f.input :phone, as: :tel %>
+  <%= f.input :can_sms, as: :boolean %>
+  <%= f.input :shared_email, as: :email %>
+  <%= f.input :occupation %>
+  <%= f.input :bio %>
   <% if policy(@user).change_role? %>
     <%= f.input :role, collection: @roles %>
   <% end %>
   <%= f.button :submit, class: 'btn-primary' %>
-<% end %>
-
-<% @user.owns_units.map(&:unit).each do |unit| %>
-  <%= unit_user.number %>
 <% end %>

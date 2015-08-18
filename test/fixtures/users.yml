@@ -19,9 +19,12 @@
 #  uid                    :string
 #  name                   :string
 #  image                  :string
-#  is_admin               :boolean          default(FALSE)
-#  is_board               :boolean          default(FALSE)
 #  role                   :integer
+#  shared_email           :string
+#  phone                  :string
+#  can_sms                :boolean
+#  occupation             :string
+#  bio                    :text
 #
 # Indexes
 #

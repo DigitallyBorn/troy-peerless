@@ -12,7 +12,6 @@ Rails.application.routes.draw do
 
     resources :users do
       resources :units
-      get :orphans, on: :collection
     end
     # get 'users' => 'users#index'
     # get 'users/:id' => 'users#show'

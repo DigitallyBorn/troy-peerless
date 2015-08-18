@@ -14,10 +14,19 @@ class Admin::UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     @roles = User.roles
-    @owns = @user.owns.map(&:unit).decorate
-    @rents = @user.rents.map(&:unit).decorate
     authorize @user, :update?
     @units = Unit.all
+  end
+
+  def update
+    @user = User.find(params[:id])
+    authorize @user, :update?
+    if @user.update_attributes(permitted_attributes(@user))
+      flash[:success] = "#{@user.name} has been updated."
+      redirect_to edit_admin_user_path(@user)
+    else
+      render :edit
+    end
   end
 
   protected

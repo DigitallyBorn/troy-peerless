@@ -11,9 +11,4 @@ class Admin::UsersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get orphans" do
-    get :orphans
-    assert_response :success
-  end
-
 end
