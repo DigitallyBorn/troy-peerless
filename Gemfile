@@ -37,3 +37,5 @@ group :development do
 end
 
 gem 'sdoc', '~> 0.4.0', group: :doc # bundle exec rake doc:rails generates the API under doc/api.
+
+gem 'rails_12factor', group: :production # Standardizes loging for Heroku and other goodies
