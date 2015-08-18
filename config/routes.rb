@@ -8,9 +8,20 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   namespace :admin do
-    get 'users' => 'users#index'
-    get 'users/orphans' => 'users#orphans'
-    get 'users/:id' => 'users#show'
+    root 'home#index'
+
+    resources :users do
+      resources :units
+      get :orphans, on: :collection
+    end
+    # get 'users' => 'users#index'
+    # get 'users/:id' => 'users#show'
+    # post 'users/:id' => 'nowhere#index'
+    # put 'users/:id/'
+
+    get 'documents' => 'nowhere#index'
+    get 'documents/:id' => 'nowhere#index'
+
   end
 
   # Example of regular route:

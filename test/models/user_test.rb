@@ -21,6 +21,14 @@
 #  image                  :string
 #  is_admin               :boolean          default(FALSE)
 #  is_board               :boolean          default(FALSE)
+#  role                   :integer
+#
+# Indexes
+#
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_provider              (provider)
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_uid                   (uid)
 #
 
 require 'test_helper'

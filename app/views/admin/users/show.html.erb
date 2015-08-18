@@ -1,2 +1,24 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<h1><%= @user.name %></h1>
+
+<%= form_for(@user, url: admin_path(@user.id), class: 'form') do |f| %>
+  <div class="form-group">
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.text_field :image, class: 'form-control' %>
+  </div>
+<% end %>
+
+<h4>Units</h4>
+
+<%= form_for(@new_unit, url: admin_user_units_path(@user.id), class: 'form') do |f| %>
+  <div class="form-group">
+    Unit Number:
+    <!-- <%= number_field_tag 'number', '', class: 'form-control' %> -->
+    <%= f.select(:unit, options_from_collection_for_select(@units, :id, :number)) %>
+  </div>
+  <div class="form-group">
+    Is Owner?
+    <%= f.check_box :is_owner, class: 'checkbox' %>
+  </div>
+<% end %>

@@ -33,6 +33,12 @@ gem 'pundit'
 # Annotate models
 gem 'annotate'
 
+# Easier form generation
+gem 'simple_form'
+
+# Model decorator support
+gem 'draper'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

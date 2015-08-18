@@ -21,9 +21,19 @@
 #  image                  :string
 #  is_admin               :boolean          default(FALSE)
 #  is_board               :boolean          default(FALSE)
+#  role                   :integer
+#
+# Indexes
+#
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_provider              (provider)
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_uid                   (uid)
 #
 
 class User < ActiveRecord::Base
+  enum role: [:guest, :tenant, :owner, :admin, :board_member]
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -31,6 +41,13 @@ class User < ActiveRecord::Base
          :omniauthable, :omniauth_providers => [:facebook]
 
   has_and_belongs_to_many :parking_spots
+  has_many :unit_users
+
+  after_initialize :set_default_role, :if => :new_record?
+
+  def set_default_role
+    self.role ||= :guest
+  end
 
   def self.owners_and_residents
     where('id IN (select user_id from unit_users)')
@@ -42,7 +59,6 @@ class User < ActiveRecord::Base
 
   def self.from_omniauth(auth)
      where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
-       Rails.logger.warn auth.to_json
        user.email = auth.extra.raw_info[:email]
        user.password = Devise.friendly_token[0,20]
        user.name = auth.extra.raw_info[:name]   # assuming the user model has a name

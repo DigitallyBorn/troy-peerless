@@ -17,3 +17,9 @@
    min-height: 2000px;
    padding-top: 70px
  }
+
+.btn.btn-facebook::before {
+  content: '\f09a';
+  font-family: FontAwesome;
+  padding-right: 0.3em;
+}
