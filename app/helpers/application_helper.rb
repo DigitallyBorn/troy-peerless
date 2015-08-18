@@ -10,4 +10,8 @@ module ApplicationHelper
     Rails.logger.debug "Flash message #{key}"
     FLASH_KEYS[key] || 'info'
   end
+
+  def if_current_page(text, path)
+    text if current_page? path
+  end
 end

@@ -11,10 +11,11 @@
  * file per style scope.
  *
  */
-@import "bootstrap-sprockets";
-@import "bootswatch/sandstone/variables";
-@import "bootstrap";
-@import "bootswatch/sandstone/bootswatch";
+@import 'bootstrap-sprockets';
+@import 'bootswatch/sandstone/variables';
+@import 'bootstrap';
+@import 'bootswatch/sandstone/bootswatch';
+@import "font-awesome";
 
 body {
  min-height: 2000px;

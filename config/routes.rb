@@ -23,6 +23,13 @@ Rails.application.routes.draw do
 
   end
 
+  # View residents and update profile
+  get 'residents/' => 'residents#index'
+  get 'residents/:id' => 'residents#show', as: 'residents_show'
+  get 'residents/me'
+  patch 'residents/update'
+
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

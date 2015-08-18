@@ -1,0 +1,12 @@
+// Place all the styles related to the Residents controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.resident-list {
+  .resident-list-item {
+    .resident-image {
+      max-width: 8em;
+      max-height: 8em;
+      border-radius: 2em;
+    }
+  }
+}

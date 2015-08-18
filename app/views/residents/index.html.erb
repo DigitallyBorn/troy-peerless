@@ -1,0 +1,6 @@
+<h1>Residents <small>and owners</small></h1>
+<div class="row resident-list">
+  <% @residents.each do |resident| %>
+    <%= render partial:'resident', object: resident %>
+  <% end %>
+</div>
