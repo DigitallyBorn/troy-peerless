@@ -2,9 +2,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def facebook
     skip_authorization
-    
-    # You need to implement the method below in your model (e.g. app/models/user.rb)
-    @user = User.from_omniauth(request.env["omniauth.auth"])
+
+    auth = request.env["omniauth.auth"]
+    @user = User.from_omniauth(auth)
+
+    # Update info on every login
+    @user.image = auth.extra.raw_info[:picture][:data][:url] # assuming the user model has an image
+    @user.gender = auth.extra.raw_info[:gender]
 
     if @user.persisted?
       sign_in_and_redirect @user, :event => :authentication #this will throw if @user is not activated

@@ -10,23 +10,26 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
- *= require_self
  */
- body {
-   min-height: 2000px;
-   padding-top: 70px
- }
+@import "bootstrap-sprockets";
+@import "bootswatch/sandstone/variables";
+@import "bootstrap";
+@import "bootswatch/sandstone/bootswatch";
+
+body {
+ min-height: 2000px;
+ padding-top: 70px
+}
 
 .btn.btn-facebook::before {
-  content: '\f09a';
-  font-family: FontAwesome;
-  padding-right: 0.3em;
+content: '\f09a';
+font-family: FontAwesome;
+padding-right: 0.3em;
 }
 
 .navbar .user_image {
-  max-width: 3.1em;
-  max-height: 3.1em;
-  border-radius: 0.9em;
-  margin: 0.2em;
+max-width: 3.1em;
+max-height: 3.1em;
+border-radius: 0.9em;
+margin: 0.2em;
 }

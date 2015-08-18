@@ -25,6 +25,8 @@
 #  can_sms                :boolean
 #  occupation             :string
 #  bio                    :text
+#  gender                 :string
+#  facebook_url           :string
 #
 # Indexes
 #

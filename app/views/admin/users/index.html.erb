@@ -1,7 +1,11 @@
 <h1>Users</h1>
 <% for user in @users %>
 <div class="col-md-3">
-  <%= image_tag(user.image) %>
-  <%= link_to user.name, edit_admin_user_path(user.id) %>
+  <%= link_to edit_admin_user_path(user.id), class: 'thumbnail' do %>
+    <%= image_tag(user.image) %>
+    <div class="caption">
+      <h3><%= user.name %></h3>
+    </div>
+  <% end %>
 </div>
 <% end %>

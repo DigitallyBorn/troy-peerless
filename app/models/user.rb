@@ -41,12 +41,12 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, :omniauth_providers => [:facebook]
+         :omniauthable, omniauth_providers: [:facebook]
 
   has_and_belongs_to_many :parking_spots
   has_many :unit_users
 
-  after_initialize :set_default_role, :if => :new_record?
+  after_initialize :set_default_role, if: :new_record?
 
   def set_default_role
     self.role ||= :guest
@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
        user.email = auth.extra.raw_info[:email]
        user.password = Devise.friendly_token[0,20]
        user.name = auth.extra.raw_info[:name]   # assuming the user model has a name
-       user.image = auth.extra.raw_info[:picture][:data][:url] # assuming the user model has an image
+       user.facebook_url = auth.extra.raw_info[:link]
      end
   end
 
