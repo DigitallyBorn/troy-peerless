@@ -20,7 +20,7 @@ gem 'bootstrap-sass'              # Bootstrap for easy UI
 gem 'bootswatch-rails'            # Add a little color
 gem 'font-awesome-rails', '~> 4.4.0.0'         # Icons
 gem 'jquery-rails'                # Use jquery as the JavaScript library
-gem 'turbolinks'                  # Turbolinks makes following links in your web application faster.
+# gem 'turbolinks'                  # Turbolinks makes following links in your web application faster.
 gem 'jbuilder', '~> 2.0'          # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'simple_form'                 # Easier form generation
 gem 'draper'                      # Model decorator support
