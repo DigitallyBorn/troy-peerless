@@ -27,6 +27,7 @@
 #  bio                    :text
 #  gender                 :string
 #  facebook_url           :string
+#  unit_id                :integer
 #
 # Indexes
 #
@@ -34,6 +35,7 @@
 #  index_users_on_provider              (provider)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_uid                   (uid)
+#  index_users_on_unit_id               (unit_id)
 #
 
 require 'test_helper'

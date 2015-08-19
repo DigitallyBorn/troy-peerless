@@ -1,14 +1,56 @@
-<h1><%= @user.name %></h1>
-<%= simple_form_for @user, url: admin_user_path(@user.id) do |f| %>
-  <%= f.input :name %>
-  <%= f.input :email, as: :email %>
-  <%= f.input :phone, as: :tel %>
-  <%= f.input :can_sms, as: :boolean %>
-  <%= f.input :shared_email, as: :email %>
-  <%= f.input :occupation %>
-  <%= f.input :bio %>
-  <% if policy(@user).change_role? %>
-    <%= f.input :role, collection: @roles %>
+<div id="admin_edit">
+  <h1><%= @user.name %></h1>
+  <%= simple_form_for @user, url: admin_user_path(@user.id) do |f| %>
+    <div class="row">
+      <div class="col-md-6">
+
+        <%= f.input :name, required: true %>
+        <%= f.input :email, as: :email, required: true %>
+        <%= f.input :phone, as: :tel, placeholder: '000-000-0000' %>
+        <%= f.input :can_sms, as: :boolean %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :shared_email, as: :email, placeholder: 'user@domain.com' %>
+        <%= f.input :unit_id,
+          collection: @units,
+          value_method: :id,
+          label_method: :number %>
+        <%= f.input :occupation %>
+
+      </div>
+    </div>
+    <%= f.input :bio %>
+    <%= f.button :submit, class: 'btn-primary pull-right' %>
   <% end %>
-  <%= f.button :submit, class: 'btn-primary' %>
-<% end %>
+
+<div class="row">
+  <div class="col-md-6">
+    <h3>Ownership</h3>
+    <% unless @user.owns.any? %>
+      <i>This user doesn't own any units.</i>
+    <% end %>
+    <% @user.owns.each do |unit| %>
+      <div style="float: left; width: auto;">
+        <%= unit.number %> on <%= unit.floor.ordinalize %> floor.
+      </div>
+      <%= button_to destroy_unit_admin_user_path(id: user.id, unit_id: unit.id),
+            method: :delete,
+            class: 'btn btn-danger btn-sm fa fa-trash',
+            style: 'display: inline' do %>
+      <% end %>
+    <% end %>
+
+    <%= simple_form_for Unit.new, url: unit_admin_user_path(@user.id) do |f| %>
+      <div class="form-group">
+        <%= f.input :number,
+          collection: @units,
+          label_method: :number,
+          value_method: :number,
+          include_blank: false
+          %>
+        <%= f.button :submit, 'Add Unit', class: 'btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+</div>

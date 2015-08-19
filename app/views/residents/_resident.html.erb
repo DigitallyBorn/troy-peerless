@@ -1,21 +1,35 @@
-<% cache do %>
-<div class="col-md-4 media resident-list-item">
-  <div class="media-left media-middle">
-    <a href="<%= residents_show_path(id: resident.id) %>">
-      <%= image_tag resident.image, class: 'resident-image' %>
-    </a>
-  </div>
-  <div class="media-body">
-    <h3 class="media-heading"><a href="<%= residents_show_path(id: resident.id) %>"><%= resident.name %></a></h3>
-
-    <div>
-      <% resident.unit_users.each do |unit| %>
-        <%= unit.is_owner ? 'Owns' : 'Lives in' %> #<%= unit.unit.number %> (<%= unit.unit.floor.ordinalize %> floor)
-      <% end %>
+<% cache resident do %>
+<div class="col-md-4">
+  <div class="media resident-list-item">
+    <div class="media-left media-middle">
+      <a href="<%= residents_show_path(id: resident.id) %>">
+        <% if resident.image %>
+          <%= image_tag resident.image, class: 'resident-image' %>
+        <% else %>
+          <div class="resident-image">
+            <i class="fa fa-user"></i>
+          </div>
+        <% end %>
+      </a>
     </div>
+    <div class="media-body">
+      <h3 class="media-heading"><a href="<%= residents_show_path(id: resident.id) %>"><%= resident.name %></a></h3>
 
-    <div>
-      <a href="mailto:<%= resident.email %>"><i class="fa fa-envelope"></i></a>
+      <div>
+        <% if resident.unit %>
+          Lives in #<%= resident.unit.number %> (<%= resident.unit.floor.ordinalize %> floor)
+        <% end %>
+        <% resident.owns.each do |unit| %>
+          Owns #<%= unit.number %> (<%= unit.floor.ordinalize %> floor)
+        <% end %>
+      </div>
+
+      <div>
+        <a href="mailto:<%= resident.email %>"><i class="fa fa-envelope"></i></a>
+        <%= link_to resident.facebook_url do %>
+          <i class="fa fa-facebook-square"></i>
+        <% end if resident.facebook_url %>
+      </div>
     </div>
   </div>
 </div>

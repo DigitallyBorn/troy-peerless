@@ -39,10 +39,11 @@
               <%= current_user.name %> <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to('Logout', destroy_user_session_path, method: :delete) %></li>
+              <li><%= link_to('Edit Profile', residents_me_path) %></li>
+              <li><%= link_to('Logout', destroy_user_session_path) %></li>
             </ul>
           </li>
-          <li>
+          <li class="hidden-xs">
             <%= image_tag(current_user.image, class: 'user_image') %>
           </li>
         </ul>

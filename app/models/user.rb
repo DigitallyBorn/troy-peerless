@@ -25,6 +25,9 @@
 #  can_sms                :boolean
 #  occupation             :string
 #  bio                    :text
+#  gender                 :string
+#  facebook_url           :string
+#  unit_id                :integer
 #
 # Indexes
 #
@@ -32,10 +35,11 @@
 #  index_users_on_provider              (provider)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_uid                   (uid)
+#  index_users_on_unit_id               (unit_id)
 #
 
 class User < ActiveRecord::Base
-  enum role: [:guest, :tenant, :owner, :admin, :board_member]
+  enum role: { normal: 0, admin: 1, board_member: 2 }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -43,21 +47,31 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook]
 
+  belongs_to :unit
   has_and_belongs_to_many :parking_spots
-  has_many :unit_users
+  has_and_belongs_to_many :owns,
+    join_table: 'users_own_units',
+    class_name: Unit,
+    touch: true
 
   after_initialize :set_default_role, if: :new_record?
 
-  def set_default_role
-    self.role ||= :guest
+  validates :name,
+    presence: true,
+    uniqueness: { case_sensitive: false },
+    length: { in: 2..40 }
+
+  validates :email,
+    presence: true,
+    uniqueness: { case_sensitive: false },
+    length: { in: 3..254 }
+
+  def self.residents
+    joins(:unit)
   end
 
-  def self.owners_and_residents
-    where('id IN (select user_id from unit_users)')
-  end
-
-  def self.orphans
-    where('id NOT IN (select user_id from unit_users)')
+  def self.roommates(user_id, unit_id)
+    where(unit_id: unit_id).where.not(id: user_id)
   end
 
   def self.from_omniauth(auth)
@@ -72,5 +86,9 @@ class User < ActiveRecord::Base
   protected
     def password_required?
       false
+    end
+
+    def set_default_role
+      self.role ||= :normal
     end
 end

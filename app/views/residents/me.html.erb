@@ -1,2 +1,18 @@
-<h1>Residents#me</h1>
-<p>Find me in app/views/residents/me.html.erb</p>
+<h1><%= @resident.name %> <small>Profile</small></h1>
+<%= simple_form_for @resident, url: residents_update_path(@resident.id) do |f| %>
+  <div class="row">
+    <div class="col-md-6">
+
+      <%= f.input :name, required: true %>
+      <%= f.input :email, as: :email, required: true %>
+      <%= f.input :phone, as: :tel, placeholder: '000-000-0000' %>
+      <%= f.input :can_sms, as: :boolean %>
+    </div>
+    <div class="col-md-6">
+      <%= f.input :shared_email, as: :email, placeholder: 'user@domain.com' %>
+      <%= f.input :occupation %>
+    </div>
+  </div>
+  <%= f.input :bio %>
+  <%= f.button :submit, class: 'btn-primary pull-right' %>
+<% end %>

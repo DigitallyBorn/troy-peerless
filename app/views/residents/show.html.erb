@@ -1,2 +1,13 @@
-<h1>Residents#show</h1>
-<p>Find me in app/views/residents/show.html.erb</p>
+<h1>
+  <%= @resident.name %>
+  <% if @resident.unit %>
+    <small>Lives in <%= @resident.unit.number %></small>
+  <% end %>
+</h1>
+
+<% if @roommates.any? %>
+  <h3>Lives with</h3>
+  <% @roommates.each do |rm| %>
+    <%= render partial:'resident', object: rm %>
+  <% end %>
+<% end %>

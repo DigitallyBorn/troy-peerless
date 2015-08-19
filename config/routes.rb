@@ -11,7 +11,10 @@ Rails.application.routes.draw do
     root 'home#index'
 
     resources :users do
-      resources :units
+      member do
+        post 'unit' => 'users#add_unit'
+        delete 'unit/:unit_id' => 'users#remove_unit', as: 'destroy_unit'
+      end
     end
     # get 'users' => 'users#index'
     # get 'users/:id' => 'users#show'
@@ -25,8 +28,8 @@ Rails.application.routes.draw do
 
   # View residents and update profile
   get 'residents/' => 'residents#index'
-  get 'residents/:id' => 'residents#show', as: 'residents_show'
   get 'residents/me'
+  get 'residents/:id' => 'residents#show', as: 'residents_show'
   patch 'residents/update'
 
 
