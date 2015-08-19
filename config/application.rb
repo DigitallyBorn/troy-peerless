@@ -30,5 +30,9 @@ module TroyPeerless
 
     config.facebook_appid = Rails.application.secrets.facebook_appid || ENV['FACEBOOK_APPID']
     config.facebook_secret = Rails.application.secrets.facebook_secret || ENV['FACEBOOK_SECRET']
+
+    config.aws_bucket = Rails.application.secrets.aws_bucket || ENV['AWS_BUCKET']
+    config.aws_access_key = Rails.application.secrets.aws_access_key || ENV['AWS_ACCESS_KEY_ID']
+    config.aws_access_secret = Rails.application.secrets.aws_access_secret || ENV['AWS_SECRET_ACCESS_KEY']
   end
 end

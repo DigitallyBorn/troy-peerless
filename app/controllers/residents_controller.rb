@@ -26,6 +26,16 @@ class ResidentsController < ApplicationController
     end
   end
 
+  def aws_upload_callback
+    authorize current_user, :update?
+    image_url = "https://#{params[:bucket]}.s3.amazonaws.com/#{params[:key]}"
+    current_user.image = image_url
+    current_user.save
+
+    flash[:success] = 'Your image has been updated.'
+    redirect_to residents_me_path
+  end
+
   protected
 
   def show_params

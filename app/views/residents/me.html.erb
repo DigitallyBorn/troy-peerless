@@ -1,5 +1,5 @@
 <h1><%= @resident.name %> <small>Profile</small></h1>
-<%= simple_form_for @resident, url: residents_update_path(@resident.id) do |f| %>
+<%= simple_form_for @resident, url: residents_update_path(@resident.id), class: 'row' do |f| %>
   <div class="row">
     <div class="col-md-6">
 
@@ -16,3 +16,19 @@
   <%= f.input :bio %>
   <%= f.button :submit, class: 'btn-primary pull-right' %>
 <% end %>
+
+<div class="row">
+  <h2>Upload Profile Image</h2>
+<%
+presigned_post = presigned_user_image(@resident.id)
+%>
+  <form class="form-inline" action="<%= presigned_post.url %>" method="post" enctype="multipart/form-data">
+    <% presigned_post.fields.each do |name, value| %>
+      <input type="hidden" name="<%= name %>" value="<%= value %>"/>
+    <% end %>
+    <div class="form-group">
+      <input type="file" name="file" class="form-control"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Upload Image</button>
+  </form>
+</div>

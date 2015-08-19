@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   # View residents and update profile
   get 'residents/' => 'residents#index'
   get 'residents/me'
+  get 'residents/me/aws-callback' => 'residents#aws_upload_callback'
   get 'residents/:id' => 'residents#show', as: 'residents_show'
   patch 'residents/update'
 

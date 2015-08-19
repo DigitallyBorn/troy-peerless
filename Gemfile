@@ -25,6 +25,8 @@ gem 'jbuilder', '~> 2.0'          # Build JSON APIs with ease. Read more: https:
 gem 'simple_form'                 # Easier form generation
 gem 'draper'                      # Model decorator support
 
+gem 'aws-sdk', '~> 2.1.14'        # AWS mostly for file storage
+
 group :development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
