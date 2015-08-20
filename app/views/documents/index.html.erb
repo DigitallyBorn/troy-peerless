@@ -4,7 +4,10 @@
 
 <h1>Documents</h1>
 
-<% @categories.each_key do |category| %>
+<%
+@categories.each_key do |category|
+reset_cycle()
+%>
 <div class="row">
   <h2><%= category.humanize %></h2>
   <% @categories[category].each do |document| %>
