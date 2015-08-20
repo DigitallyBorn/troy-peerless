@@ -9,7 +9,8 @@ gem 'puma'                        # Use Puma as the app server
 gem 'pg'                          # Use postgres for db
 
 gem 'devise'                      # Authentication
-gem 'omniauth-facebook'           # Authentication
+gem 'omniauth-facebook'           # Facebook Authentication
+gem 'omniauth-twitter'            # Twitter Authentication
 gem 'pundit'                      # Authorization
 gem 'redis-rails'                 # Redis memory server for caching
 

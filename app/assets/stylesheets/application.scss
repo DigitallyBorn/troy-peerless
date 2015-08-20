@@ -28,6 +28,12 @@ font-family: FontAwesome;
 padding-right: 0.3em;
 }
 
+.btn.btn-twitter::before {
+content: '\f099';
+font-family: FontAwesome;
+padding-right: 0.3em;
+}
+
 .navbar .user_image {
 max-width: 3.1em;
 max-height: 3.1em;

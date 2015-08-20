@@ -6,7 +6,6 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` on Rails 4+ applications as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '7a9a06206bfee3bfd863e43df7c244be2642b1f8697456ea5df458b56eb1fd4ba6248d38dd1301cc8260e1c9a212b5cd09f31f5f12a04d26debcd3932725033f'
   config.secret_key = ENV['DEVISE_SECRET'] if ENV['DEVISE_SECRET']
 
   # ==> Mailer Configuration
@@ -244,6 +243,14 @@ Devise.setup do |config|
            :scope => 'email,public_profile',
            :info_fields => 'email,name,picture.width(256),gender,link',
            :secure_image_url => true
+
+  config.omniauth :twitter,
+            Rails.application.config.twitter_consumer_key,
+            Rails.application.config.twitter_consumer_secret,
+            {
+              image_size: 'bigger',
+              secure_image_url: true
+            }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

@@ -28,6 +28,7 @@
 #  gender                 :string
 #  facebook_url           :string
 #  unit_id                :integer
+#  twitter_url            :string
 #
 # Indexes
 #

@@ -28,6 +28,7 @@
 #  gender                 :string
 #  facebook_url           :string
 #  unit_id                :integer
+#  twitter_url            :string
 #
 # Indexes
 #
@@ -45,7 +46,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, omniauth_providers: [:facebook]
+         :omniauthable, omniauth_providers: [:facebook, :twitter]
 
   belongs_to :unit
   has_and_belongs_to_many :parking_spots
@@ -58,13 +59,11 @@ class User < ActiveRecord::Base
 
   validates :name,
     presence: true,
-    uniqueness: { case_sensitive: false },
     length: { in: 2..40 }
 
   validates :email,
-    presence: true,
     uniqueness: { case_sensitive: false },
-    length: { in: 3..254 }
+    length: { maximum: 254 }
 
   def self.residents
     joins(:unit)
@@ -76,10 +75,21 @@ class User < ActiveRecord::Base
 
   def self.from_omniauth(auth)
      where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
-       user.email = auth.extra.raw_info[:email]
        user.password = Devise.friendly_token[0,20]
-       user.name = auth.extra.raw_info[:name]   # assuming the user model has a name
-       user.facebook_url = auth.extra.raw_info[:link]
+
+       case auth[:provider]
+       when 'facebook' then
+         user.email = auth.extra.raw_info[:email]
+         user.name = auth.extra.raw_info[:name]   # assuming the user model has a name
+         user.image = auth.extra.raw_info[:picture][:data][:url] # assuming the user model has an image
+         user.facebook_url = auth.extra.raw_info[:link]
+       when 'twitter' then
+         user.email = "#{auth.info.nickname}@twitter-users.com"
+         user.name = auth.info.name
+         user.image = auth.info.image
+         user.bio = auth.info.description
+         user.twitter_url = auth.info.urls.Twitter
+       end
      end
   end
 
