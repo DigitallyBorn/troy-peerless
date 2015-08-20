@@ -3,13 +3,14 @@
   <div class="media resident-list-item">
     <div class="media-left media-middle">
       <a href="<%= residents_show_path(id: resident.id) %>">
-        <% if resident.image %>
-          <%= image_tag resident.image, class: 'resident-image' %>
-        <% else %>
-          <div class="resident-image">
-            <i class="fa fa-user"></i>
-          </div>
-        <% end %>
+          <% if resident.image %>
+            <div class="resident-image" style="background-image: url('<%= resident.image %>')">
+            </div>
+          <% else %>
+            <div class="resident-image">
+              <i class="fa fa-user"></i>
+            </div>
+          <% end %>
       </a>
     </div>
     <div class="media-body">

@@ -1,7 +1,7 @@
 // Place all the styles related to the Residents controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-@import 'bootswatch/sandstone/variables';
+@import 'bootswatch/spacelab/variables';
 @import 'bootstrap';
 .resident-list {
   .resident-list-item {
@@ -10,12 +10,21 @@
       height: 8em;
       border-radius: 2em;
       background-color: $brand-success;
+      background-size: cover;
       color: $gray-lighter;
 
       i {
         font-size: 7.8em;
         text-align: center;
         width: 100%;
+      }
+
+      div {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0
       }
     }
 

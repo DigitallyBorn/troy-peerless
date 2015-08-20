@@ -7,27 +7,29 @@
   <% @events.each do |event| %>
     <div class="event-card col-md-12">
       <% if policy(event).update? %>
-          <span class="action-buttons pull-right">
-            <%= link_to edit_event_path(event) do %>
+        <span class="action-buttons pull-right">
+          <%= link_to edit_event_path(event) do %>
             <i class="fa fa-edit"></i>
-            <% end %>
-            <%= button_to event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' do %>
-              <i class="fa fa-trash"></i>
-            <% end %>
-          </span>
+          <% end %>
+          <%= button_to event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' do %>
+            <i class="fa fa-trash"></i>
+          <% end %>
+        </span>
       <% end %>
-      <h3>
-        <small><%= event.display_date %></small>
-        <%= event.title %>
-      </h3>
-      <div class="row">
-        <div class="col-md-12">
-          <%= event.location %>
+      <% cache event do %>
+        <h3>
+          <small><%= event.display_date %></small>
+          <%= event.title %>
+        </h3>
+        <div class="row">
+          <div class="col-md-12">
+            <%= event.location %>
+          </div>
+          <div class="col-md-12">
+            <%= event.description %>
+          </div>
         </div>
-        <div class="col-md-12">
-          <%= event.description %>
-        </div>
-      </div>
+      <% end %>
     </div>
   <% end %>
 </div>
