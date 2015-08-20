@@ -18,7 +18,7 @@ module AwsHelper
       key: "documents/${filename}",
       key_starts_with: 'documents/',
       allow_any: ['document[category]', 'document[title]'],
-      content_length_range: 0..5000000,
+      content_length_range: 0..20000000,
       acl: 'private',
       success_action_redirect_starts_with: aws_callback_documents_url,
       metadata: {
