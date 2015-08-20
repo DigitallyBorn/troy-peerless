@@ -29,7 +29,7 @@
           <li class="<%= if_current_page 'active', root_path %>"><%= link_to 'Home', root_path %></li>
           <li class="<%= if_current_page 'active', residents_path %>"><%= link_to 'Residents', residents_path %></li>
           <li class="disabled"><a href="#" title="Coming soon">Parking</a></li>
-          <li class="disabled"><a href="#" title="Coming soon">Documents</a></li>
+          <li class="<%= if_current_page 'active', documents_path %>"><%= link_to 'Documents', documents_path %></li>
           <li class="<%= if_current_page 'active', events_path %>"><a href="<%= events_path %>">Events</a></li>
         </ul>
         <% if current_user %>

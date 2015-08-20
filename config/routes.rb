@@ -34,6 +34,11 @@ Rails.application.routes.draw do
   patch 'residents/update'
 
   resources :events, except: :show
+  resources :documents do
+    collection do
+      get 'aws_callback' => 'documents#aws_callback'
+    end
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

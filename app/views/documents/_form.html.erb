@@ -1,0 +1,24 @@
+
+  <%= simple_form_for :document, url: @post.url, method: :post, html: { id: 'document_upload_form', enctype: 'multipart/form-data' }, authenticity_token: false, enforce_utf8: false do |f| %>
+  <!-- <form class="form-inline" action="<%= @post.url %>" method="post" enctype="multipart/form-data"> -->
+    <% @post.fields.each do |name, value| %>
+      <input type="hidden" name="<%= name %>" value="<%= value %>"/>
+    <% end %>
+    <input type="hidden" name="success_action_redirect" value="<%= aws_callback_documents_url %>">
+
+    <%= f.input :category,
+          collection: Document.categories,
+          include_blank: false,
+          label_method: Proc.new {|c| c[0].capitalize } %>
+
+    <%= f.input :title %>
+
+    <div class="form-group">
+      <label>
+        File
+        <input type="file" name="file" class="form-control"/>
+      </label>
+    </div>
+    <button type="submit" class="btn btn-primary">Upload Document</button>
+  <!-- </form> -->
+<% end %>

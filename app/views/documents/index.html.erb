@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<%= link_to new_document_path, class: 'btn btn-default pull-right' do %>
+  <i class="fa fa-plus"></i>
+<% end %>
+
+<h1>Documents</h1>
+
+<% @documents.each do |document| %>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <a href="<%= document_path(document.id) %>" class="btn btn-default pull-right"><i class="fa fa-2x fa-cloud-download"></i></a>
+      <h4><%= document.title %></h4>
+      <small>Uploaded by <%= link_to document.user.name, residents_show_path(document.user.id) %> <%= document.created_at %> ago</small>
+    </div>
+  </div>
+<% end %>
