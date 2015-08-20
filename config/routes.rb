@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   get 'residents/:id' => 'residents#show', as: 'residents_show'
   patch 'residents/update'
 
+  resources :events, except: :show
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

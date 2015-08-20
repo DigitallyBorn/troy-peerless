@@ -1,0 +1,26 @@
+<%= simple_form_for(@event) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :date,
+          as: :datetime,
+          start_year: Date.today.year,
+          end_year: Date.today.year + 1,
+          input_html: { class: 'test' } %>
+
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :title %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :location %>
+      </div>
+    </div>
+
+    <%= f.input :description %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn-primary pull-right' %>
+  </div>
+<% end %>

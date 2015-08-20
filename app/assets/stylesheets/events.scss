@@ -1,0 +1,30 @@
+// Place all the styles related to the events controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'bootswatch/sandstone/variables';
+.event_date {
+  select {
+    display: inline;
+    width: auto
+  }
+
+  label {
+    display: block;
+  }
+}
+
+.event-card {
+  form {
+    display: inline;
+
+    button[type=submit] {
+      background-color: transparent;
+      border: none;
+    }
+  }
+
+  .action-buttons {
+    font-size: 1.5em;
+    margin-top: 1em;
+  }
+}

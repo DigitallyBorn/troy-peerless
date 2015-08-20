@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<%= link_to 'New Event', new_event_path, class: 'btn btn-default pull-right' %>
+<h1>Events</h1>
+
+<div class="row">
+  <% @events.each do |event| %>
+    <div class="event-card col-md-12">
+      <% if policy(event).update? %>
+          <span class="action-buttons pull-right">
+            <%= link_to edit_event_path(event) do %>
+            <i class="fa fa-edit"></i>
+            <% end %>
+            <%= button_to event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' do %>
+              <i class="fa fa-trash"></i>
+            <% end %>
+          </span>
+      <% end %>
+      <h3>
+        <small><%= event.display_date %></small>
+        <%= event.title %>
+      </h3>
+      <div class="row">
+        <div class="col-md-12">
+          <%= event.location %>
+        </div>
+        <div class="col-md-12">
+          <%= event.description %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
