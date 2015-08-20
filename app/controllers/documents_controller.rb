@@ -1,4 +1,5 @@
 class DocumentsController < ApplicationController
+  before_filter :authenticate_user!
   decorates_assigned :document
   before_action :set_document, only: [:show, :edit, :update, :destroy]
 
@@ -7,7 +8,8 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
   def index
-    @documents = Document.all.decorate
+    authorize Document
+    @categories = Document.all.order(:title).decorate.group_by(&:category)
   end
 
   # GET /documents/1
@@ -18,17 +20,16 @@ class DocumentsController < ApplicationController
 
   # GET /documents/new
   def new
+    authorize Document
     @post = presigned_document_upload()
-  end
-
-  # GET /documents/1/edit
-  def edit
   end
 
   # POST /documents
   # POST /documents.json
   def create
     @document = Document.new(document_params)
+
+    authorize @user, :create?
 
     respond_to do |format|
       if @document.save
@@ -41,23 +42,11 @@ class DocumentsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /documents/1
-  # PATCH/PUT /documents/1.json
-  def update
-    respond_to do |format|
-      if @document.update(document_params)
-        format.html { redirect_to @document, notice: 'Document was successfully updated.' }
-        format.json { render :show, status: :ok, location: @document }
-      else
-        format.html { render :edit }
-        format.json { render json: @document.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # DELETE /documents/1
   # DELETE /documents/1.json
   def destroy
+    authorize @user, :destroy?
+
     @document.destroy
     respond_to do |format|
       format.html { redirect_to documents_url, notice: 'Document was successfully destroyed.' }
@@ -70,7 +59,7 @@ class DocumentsController < ApplicationController
     @document.url = "https://#{params[:bucket]}.s3.amazonaws.com/#{params[:key]}"
     @document.user = current_user
     @document.title = params[:title]
-    @document.category = Document.categories[params[:category]]
+    @document.category = params[:category]
 
     respond_to do |format|
       if @document.save

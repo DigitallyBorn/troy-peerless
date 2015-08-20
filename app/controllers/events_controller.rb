@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  before_filter :authenticate_user!
   decorates_assigned :event
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 

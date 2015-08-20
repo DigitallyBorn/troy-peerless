@@ -1,17 +1,36 @@
 <p id="notice"><%= notice %></p>
 
 <%= link_to new_document_path, class: 'btn btn-default pull-right' do %>
-  <i class="fa fa-plus"></i>
+<i class="fa fa-plus"></i>
 <% end %>
 
 <h1>Documents</h1>
 
-<% @documents.each do |document| %>
-  <div class="panel panel-default">
+<% @categories.each_key do |category| %>
+<div class="row">
+  <h2><%= category.humanize %></h2>
+  <% @categories[category].each do |document| %>
+  <% cache document do %>
+  <div class="document-item panel panel-default col-md-5 <%= cycle('', 'col-md-offset-2') %>">
     <div class="panel-body">
-      <a href="<%= document_path(document.id) %>" class="btn btn-default pull-right"><i class="fa fa-2x fa-cloud-download"></i></a>
+      <span class="pull-right action-buttons">
+        <a class="btn btn-default" href="<%= document_path(document.id) %>">
+          <i class="fa fa-2x fa-cloud-download"></i>
+        </a>
+        <% if policy(document).destroy? %>
+        <%= button_to document, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' do %>
+        <i class="fa fa-2x fa-trash"></i>
+        <% end #of button block %>
+        <% end #of policy check %>
+      </span>
       <h4><%= document.title %></h4>
-      <small>Uploaded by <%= link_to document.user.name, residents_show_path(document.user.id) %> <%= document.created_at %> ago</small>
+      <small>Uploaded by
+        <%= link_to document.user.name, residents_show_path(document.user.id) %>
+        <%= document.created_at %>
+        ago</small>
     </div>
   </div>
-<% end %>
+  <% end # of document cache block %>
+  <% end #of document loop %>
+</div>
+<% end #of category loop %>
