@@ -5,6 +5,7 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
+    authorize Event
     @events = Event.upcoming.order(:date).decorate
   end
 

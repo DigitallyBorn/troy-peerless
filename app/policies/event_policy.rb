@@ -6,6 +6,10 @@ class EventPolicy < ApplicationPolicy
     @model = model
   end
 
+  def index?
+    user.admin? || user.board_member? || user.unit || user.owns.any?
+  end
+
   def update?
     user == model.user || user.admin? || user.board_member?
   end
