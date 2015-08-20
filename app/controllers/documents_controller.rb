@@ -72,12 +72,14 @@ class DocumentsController < ApplicationController
     @document.title = params[:title]
     @document.category = Document.categories[params[:category]]
 
-    if @document.save
-      format.html { redirect_to documents_url, notice: 'Document was successfully created.' }
-      format.json { render :show, status: :created, location: @document }
-    else
-      format.html { render :new }
-      format.json { render json: @document.errors, status: :unprocessable_entity }
+    respond_to do |format|
+      if @document.save
+        format.html { redirect_to documents_url, notice: 'Document was successfully created.' }
+        format.json { render :show, status: :created, location: @document }
+      else
+        format.html { render :new }
+        format.json { render json: @document.errors, status: :unprocessable_entity }
+      end
     end
   end
 
