@@ -15,7 +15,8 @@ class DocumentsController < ApplicationController
   # GET /documents/1
   # GET /documents/1.json
   def show
-    redirect_to presigned_download_url(URI(@document.url).path.gsub(/^\//,''))
+    authorize @document, :show?
+    redirect_to Aws::S3::Object.new(@document.s3_bucket, @document.s3_key).presigned_url(:get)
   end
 
   # GET /documents/new
@@ -45,7 +46,9 @@ class DocumentsController < ApplicationController
   # DELETE /documents/1
   # DELETE /documents/1.json
   def destroy
-    authorize @user, :destroy?
+    authorize @document, :destroy?
+
+    Aws::S3::Object.new(@document.s3_bucket, @document.s3_key).delete
 
     @document.destroy
     respond_to do |format|
@@ -56,10 +59,13 @@ class DocumentsController < ApplicationController
 
   def aws_callback
     @document = Document.new()
-    @document.url = "https://#{params[:bucket]}.s3.amazonaws.com/#{params[:key]}"
     @document.user = current_user
     @document.title = params[:title]
     @document.category = params[:category]
+
+    @document.s3_key = params[:key]
+    @document.s3_bucket = params[:bucket]
+    @document.url = Aws::S3::Object.new(@document.s3_bucket, @document.s3_key).public_url
 
     respond_to do |format|
       if @document.save

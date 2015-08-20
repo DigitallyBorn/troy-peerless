@@ -9,6 +9,8 @@
 #  category   :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  s3_key     :string
+#  s3_bucket  :string
 #
 # Indexes
 #

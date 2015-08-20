@@ -28,15 +28,6 @@ module AwsHelper
     })
   end
 
-  def presigned_download_url(key)
-    client = Aws::S3::Client.new(
-      region: 'us-east-1',
-      credentials: get_credentials,
-    )
-    signer = Aws::S3::Presigner.new client: client
-    signer.presigned_url(:get_object, bucket: Rails.application.config.aws_bucket, key: key )
-  end
-
   private
 
   def get_credentials

@@ -10,6 +10,10 @@ class DocumentPolicy < ApplicationPolicy
     user.admin? || user.board_member? || user.unit || user.owns.any?
   end
 
+  def show?
+    user.admin? || user.board_member? || user.unit || user.owns.any?
+  end
+
   def new?
     user.admin? || user.board_member? || user.unit || user.owns.any?
   end
