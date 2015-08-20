@@ -3,10 +3,12 @@ class ResidentsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    authorize User
     @residents = User.residents.order(:name)
   end
 
   def show
+    authorize @resident
     @resident = User.find(params[:id])
     @roommates = User.roommates(@resident.id, @resident.unit.id) if @resident.unit
   end

@@ -239,18 +239,6 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  config.omniauth :facebook, Rails.application.config.facebook_appid, Rails.application.config.facebook_secret,
-           :scope => 'email,public_profile',
-           :info_fields => 'email,name,picture.width(256),gender,link',
-           :secure_image_url => true
-
-  config.omniauth :twitter,
-            Rails.application.config.twitter_consumer_key,
-            Rails.application.config.twitter_consumer_secret,
-            {
-              image_size: 'bigger',
-              secure_image_url: true
-            }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

@@ -7,7 +7,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def default?
-    @user.admin? || @user.board_member?
+    @user.admin? || @user.board_member? || @user == @model
   end
 
   def change_role?
