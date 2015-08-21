@@ -3,31 +3,9 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import 'bootswatch/spacelab/variables';
 @import 'bootstrap';
-.resident-list {
-  .resident-list-item {
-    .resident-image {
-      width: 8em;
-      height: 8em;
-      border-radius: 2em;
-      background-color: $brand-success;
-      background-size: cover;
-      color: $gray-lighter;
 
-      i {
-        font-size: 7.8em;
-        text-align: center;
-        width: 100%;
-      }
-
-      div {
-        width: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0
-      }
-    }
-
-    margin-bottom: .5em;
+.resident-show {
+  .resident-image {
+    border-radius: 3em;
   }
 }

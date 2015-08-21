@@ -1,0 +1,7 @@
+<% cache [residents.map(&:id)] do %>
+<div class="row resident-list">
+  <%- residents.each do |user| %>
+  <%= render partial:'residents/resident', object: user %>
+  <% end -%>
+</div>
+<% end %>

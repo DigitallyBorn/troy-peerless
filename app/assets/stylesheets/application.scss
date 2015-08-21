@@ -40,3 +40,32 @@ max-height: 3.1em;
 border-radius: 0.9em;
 margin: 0.2em;
 }
+
+.resident-list {
+  .resident-list-item {
+    .resident-image {
+      width: 8em;
+      height: 8em;
+      border-radius: 2em;
+      background-color: $brand-success;
+      background-size: cover;
+      color: $gray-lighter;
+
+      i {
+        font-size: 7.8em;
+        text-align: center;
+        width: 100%;
+      }
+
+      div {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0
+      }
+    }
+
+    margin-bottom: .5em;
+  }
+}

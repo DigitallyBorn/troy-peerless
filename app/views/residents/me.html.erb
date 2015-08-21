@@ -1,5 +1,5 @@
 <h1><%= @resident.name %> <small>Profile</small></h1>
-<%= simple_form_for @resident, url: residents_update_path(@resident.id), class: 'row' do |f| %>
+<%= simple_form_for @resident, url: admin_user_path(@resident.id), class: 'row' do |f| %>
   <div class="row">
     <div class="col-md-6">
 

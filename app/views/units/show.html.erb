@@ -1,0 +1,17 @@
+<h1>Apartment
+  <%= @unit.number %>
+  <small>on the
+    <%= @unit.floor %>
+    floor</small>
+</h1>
+
+<%- if @unit.owners.any? %>
+<h2>Owned by</h2>
+<%= render partial:'residents/residents', object: @unit.owners %>
+<% end -%>
+
+<%- if @unit.users.any? %>
+<h2>Residents</h2>
+<%= render partial:'residents/residents', object: @unit.users %>
+
+<% end -%>

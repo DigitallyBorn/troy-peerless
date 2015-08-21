@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -32,6 +31,8 @@ Rails.application.routes.draw do
   get 'residents/me/aws-callback' => 'residents#aws_upload_callback'
   get 'residents/:id' => 'residents#show', as: 'residents_show'
   patch 'residents/update'
+
+  resources :units, only: [:index, :show]
 
   resources :events, except: :show
   resources :documents do

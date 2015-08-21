@@ -4,7 +4,7 @@ class Admin::UsersController < ApplicationController
 
   def index
     authorize User
-    @users = User.all.order(:name)
+    @users = User.all.decorate
   end
 
   def show

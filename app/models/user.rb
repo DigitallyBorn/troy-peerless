@@ -52,8 +52,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :parking_spots
   has_and_belongs_to_many :owns,
     join_table: 'users_own_units',
-    class_name: Unit,
-    touch: true
+    class_name: Unit
 
   after_initialize :set_default_role, if: :new_record?
 
@@ -64,6 +63,10 @@ class User < ActiveRecord::Base
   validates :email,
     uniqueness: { case_sensitive: false },
     length: { maximum: 254 }
+
+  default_scope -> {
+    order(:name)
+  }
 
   def self.residents
     joins(:unit)

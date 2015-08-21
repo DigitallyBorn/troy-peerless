@@ -6,5 +6,14 @@
     max-height: 10em;
     overflow-x: scroll;
   }
+}
 
+#admin-user-index {
+  .item-bottom-padding {
+    height: 2em;
+  }
+
+  img {
+    border-radius: 30%;
+  }
 }

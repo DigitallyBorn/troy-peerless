@@ -1,4 +1,4 @@
-class UserDecorator < Draper::Decorator
+class UnitDecorator < Draper::Decorator
   delegate_all
 
   # Define presentation-specific methods here. Helpers are accessed through
@@ -10,11 +10,7 @@ class UserDecorator < Draper::Decorator
   #     end
   #   end
 
-  def created_at
-    time_ago_in_words object.created_at
-  end
-
-  def lives_in
-    "Lives in #{object.unit.number} (on #{object.unit.floor.ordinalize})" if object.unit
+  def floor
+    object.floor.ordinalize
   end
 end

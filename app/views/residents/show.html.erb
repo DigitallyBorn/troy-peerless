@@ -1,13 +1,34 @@
-<h1>
-  <%= @resident.name %>
-  <% if @resident.unit %>
-    <small>Lives in <%= @resident.unit.number %></small>
-  <% end %>
-</h1>
+<div class="resident-show">
+  <div class="row">
+    <div class="col-md-8">
+      <%= link_to edit_admin_user_path(@resident.id), class: 'btn btn-default pull-right' do %>
+      <i class="fa fa-edit"></i> Admin User
+      <% end if policy(@resident).update? %>
+      <h1>
+        <%= @resident.name %>
+        <% if @resident.unit %>
+        <small>Lives in
+          <%= link_to @resident.unit.number, @resident.unit %></small>
+        <% end %>
+      </h1>
+      <div class="row">
+        <div class="col-md-12">
+          <%= @resident.occupation %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <%= @resident.bio %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <%= image_tag @resident.image, class: 'pull-right resident-image img-responsive' %>
+    </div>
+  </div>
 
-<% if @roommates.any? %>
+  <% if @roommates.any? %>
   <h3>Lives with</h3>
-  <% @roommates.each do |rm| %>
-    <%= render partial:'resident', object: rm %>
+  <%= render partial:'residents/residents', object: @roommates %>
   <% end %>
-<% end %>
+</div>

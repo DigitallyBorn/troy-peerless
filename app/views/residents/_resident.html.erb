@@ -18,10 +18,10 @@
 
       <div>
         <% if resident.unit %>
-          Lives in #<%= resident.unit.number %> (<%= resident.unit.floor.ordinalize %> floor)
+          Lives in #<%= link_to resident.unit.number, resident.unit %> (<%= resident.unit.floor.ordinalize %> floor)
         <% end %>
         <% resident.owns.each do |unit| %>
-          Owns #<%= unit.number %> (<%= unit.floor.ordinalize %> floor)
+          Owns #<%= link_to unit.number, unit %> (<%= unit.floor.ordinalize %> floor)
         <% end %>
       </div>
 
