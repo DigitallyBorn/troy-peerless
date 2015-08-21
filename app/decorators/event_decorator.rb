@@ -12,7 +12,7 @@ class EventDecorator < Draper::Decorator
   #   end
 
   def description
-    simple_format object.description
+    Kramdown::Document.new(object.description).to_html
   end
 
   def display_date
