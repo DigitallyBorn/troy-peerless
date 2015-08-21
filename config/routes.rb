@@ -24,7 +24,6 @@ Rails.application.routes.draw do
 
     get 'documents' => 'nowhere#index'
     get 'documents/:id' => 'nowhere#index'
-
   end
 
   # View residents and update profile
@@ -38,6 +37,12 @@ Rails.application.routes.draw do
   resources :documents do
     collection do
       get 'aws_callback' => 'documents#aws_callback'
+    end
+  end
+
+  resources :announcements, except: [:index, :show, :destroy] do
+    member do
+      get 'delete' => 'announcements#destroy'
     end
   end
 

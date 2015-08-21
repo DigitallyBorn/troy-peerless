@@ -1,6 +1,7 @@
 class ResidentsController < ApplicationController
   decorates_assigned :resident
   before_action :authenticate_user!
+  before_action :set_resident, only: [:show, :edit, :update, :destroy]
 
   def index
     authorize User
@@ -8,8 +9,7 @@ class ResidentsController < ApplicationController
   end
 
   def show
-    authorize @resident
-    @resident = User.find(params[:id])
+    authorize @resident, :show?
     @roommates = User.roommates(@resident.id, @resident.unit.id) if @resident.unit
   end
 
@@ -39,6 +39,11 @@ class ResidentsController < ApplicationController
   end
 
   protected
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_resident
+    @resident = User.find(params[:id])
+  end
 
   def show_params
     params.require(:id)

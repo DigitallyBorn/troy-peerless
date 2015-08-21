@@ -15,7 +15,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   alias_method :index?, :default?
-  alias_method :orphans?, :default?
+  alias_method :show?, :default?
   alias_method :update?, :default?
 
   def permitted_attributes

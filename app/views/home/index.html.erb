@@ -1,4 +1,22 @@
+<% if policy(Announcement).new? %>
+<div class="pull-right">
+  <%= link_to new_announcement_path, class: 'btn btn-default' do %>
+  <i class="fa fa-plus"></i> New Announcement
+  <% end -%>
+</div>
+<% end %>
 <h1>Announcements</h1>
 <%- @announcements.each do |announcement| %>
 <%= render partial: 'announcements/announcement', object: announcement %>
+
+<% if policy(announcement).update? %>
+<div class="btn-group btn-group-sm">
+  <%= link_to edit_announcement_path(announcement.id), class: 'btn btn-default' do %>
+  <i class="fa fa-edit"></i>
+  <% end %>
+  <%= link_to delete_announcement_path(announcement.id), class: 'btn btn-danger', data: { confirm: "Are you sure you want to delete '#{announcement.confirmable_title}'?" } do %>
+  <i class="fa fa-trash"></i>
+  <% end %>
+</div>
+<% end %>
 <% end -%>

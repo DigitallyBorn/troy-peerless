@@ -15,7 +15,12 @@ class AnnouncementDecorator < Draper::Decorator
   end
 
   def publish_date
+    return "Not published" unless object.publish_date
     "#{helpers.time_ago_in_words object.publish_date} ago"
   end
 
+
+  def confirmable_title
+    object.title.gsub(/'/, '\\\'')
+  end
 end

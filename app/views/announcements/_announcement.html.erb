@@ -1,9 +1,15 @@
+<% cache announcement do %>
 <div class="row">
   <div class="col-md-12">
     <h2>
       <%= announcement.title %>
-      <small><%= announcement.publish_date %> by <%= link_to announcement.user.name, residents_show_path(announcement.user.id) %></small>
+      <small><%= announcement.publish_date %>
+        by
+        <%= link_to announcement.user.name, residents_show_path(announcement.user.id) %></small>
     </h2>
+  </div>
+  <div class="col-md-12">
     <%= raw announcement.body %>
   </div>
 </div>
+<% end %>

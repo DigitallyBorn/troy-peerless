@@ -93,6 +93,10 @@ class User < ActiveRecord::Base
      end
   end
 
+  def self.policy_class
+    UserPolicy
+  end
+
   protected
     def password_required?
       false

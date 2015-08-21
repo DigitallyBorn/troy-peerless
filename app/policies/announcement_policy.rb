@@ -10,8 +10,8 @@ class AnnouncementPolicy < ApplicationPolicy
     user.admin? || user.board_member? || user.unit || user.owns.any?
   end
 
-  def show?
-    user.admin? || user.board_member? || user.unit || user.owns.any?
+  def update?
+    user.admin? || user.board_member?
   end
 
   def new?
@@ -23,8 +23,20 @@ class AnnouncementPolicy < ApplicationPolicy
   end
 
   class Scope < Scope
-    def resolve
-      scope
+    attr_reader :user, :scope
+
+    def initialize(user, scope)
+      @user = user
+      @scope = scope
     end
+
+    def resolve
+      if user.admin? || user.board_member?
+        scope.all
+      else
+        scope.where("publish_date is not null and publish_date < now()")
+      end
+    end
+
   end
 end
