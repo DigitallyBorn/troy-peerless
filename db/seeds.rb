@@ -17,3 +17,11 @@ end
     unit.floor = 3 if n > 19
   end
 end
+
+unless Announcement.any?
+  Announcement.create!(
+    title: 'Site launch',
+    body: 'Horray! A new site!',
+    publish_date: DateTime.now,
+    user: User.first)
+end

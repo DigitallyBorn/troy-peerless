@@ -25,6 +25,7 @@ gem 'jquery-rails'                # Use jquery as the JavaScript library
 gem 'jbuilder', '~> 2.0'          # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'simple_form'                 # Easier form generation
 gem 'draper'                      # Model decorator support
+gem 'kramdown'                    # Markdown engine
 
 gem 'aws-sdk', '~> 2.1.14'        # AWS mostly for file storage
 

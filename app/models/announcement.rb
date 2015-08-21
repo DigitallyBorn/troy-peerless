@@ -17,4 +17,9 @@
 
 class Announcement < ActiveRecord::Base
   belongs_to :user
+
+  def self.published
+    where("publish_date is not null and publish_date < now()")
+      .order(publish_date: :desc)
+  end
 end
