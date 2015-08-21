@@ -12,3 +12,4 @@ updatePreview = ->
   $.post '/announcements/preview', { text: $('#announcement_body').val() }, (data) ->
     $('#body_preview').html(data.text)
     body_preview_update_timer = null
+updatePreview()
