@@ -44,6 +44,9 @@ Rails.application.routes.draw do
     member do
       get 'delete' => 'announcements#destroy'
     end
+    collection do
+      post 'preview' => 'announcements#preview'
+    end
   end
 
   # Example of regular route:

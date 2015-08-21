@@ -1,6 +1,7 @@
 class AnnouncementsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => :preview
   before_action :set_announcement, only: [:edit, :update, :destroy]
+  protect_from_forgery :except => :preview
 
   def new
     authorize Announcement
@@ -53,6 +54,11 @@ class AnnouncementsController < ApplicationController
     end
   end
 
+  def preview
+    rendered_text = Kramdown::Document.new(preview_params[:text]).to_html
+    render json: { text: rendered_text }
+  end
+
 
   private
   # Use callbacks to share common setup or constraints between actions.
@@ -62,5 +68,9 @@ class AnnouncementsController < ApplicationController
 
   def announcement_params
     params.require(:announcement).permit(:publish_date, :title, :body)
+  end
+
+  def preview_params
+    params.permit(:text)
   end
 end
