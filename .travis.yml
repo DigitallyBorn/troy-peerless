@@ -6,4 +6,6 @@ services:
 before_script:
   - cp config/database.yml.travis config/database.yml
 # uncomment this line if your project needs to run something other than `rake`:
-script: bundle exec rspec
+# script: bundle exec rspec
+addons:
+  code_climate: e26b557840eeb3d2e98f3a42c711d0701aecf9bb9117034457dcef70275795fb
