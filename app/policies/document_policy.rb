@@ -1,3 +1,5 @@
+##
+# Handles security policy for the document model
 class DocumentPolicy < ApplicationPolicy
   def index?
     user.admin? || user.board_member? || user.unit || user.owns.any?
@@ -13,11 +15,5 @@ class DocumentPolicy < ApplicationPolicy
 
   def destroy?
     user == record.user || user.admin? || user.board_member?
-  end
-
-  class Scope < Scope
-    def resolve
-      scope
-    end
   end
 end

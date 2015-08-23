@@ -1,5 +1,6 @@
+##
+# Handles security policy for the user model
 class UserPolicy < ApplicationPolicy
-
   def default?
     @user.admin? || @user.board_member? || @user == @record
   end
@@ -13,7 +14,9 @@ class UserPolicy < ApplicationPolicy
   alias_method :update?, :default?
 
   def permitted_attributes
-    [:name, :email, :shared_email, :phone, :occupation, :bio, :phone, :can_sms] if user.id == model.id
-    [:name, :email, :shared_email, :phone, :occupation, :bio, :phone, :can_sms, :own_ids, :unit_id] if user.admin?
+    fields = [:name, :email, :shared_email, :phone, :occupation, :bio, :phone,
+              :can_sms] if user.id == model.id && user.admin?
+    fields += [:own_ids, :unit_id] if user.admin?
+    fields
   end
 end

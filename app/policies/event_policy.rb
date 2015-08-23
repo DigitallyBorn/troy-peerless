@@ -1,3 +1,5 @@
+##
+# Handles security policy for the event model
 class EventPolicy < ApplicationPolicy
   def index?
     user.admin? || user.board_member? || user.unit || user.owns.any?
@@ -9,11 +11,5 @@ class EventPolicy < ApplicationPolicy
 
   def destroy?
     user == record.user || user.admin? || user.board_member?
-  end
-
-  class Scope < Scope
-    def resolve
-      scope
-    end
   end
 end

@@ -1,3 +1,5 @@
+##
+# Provides baseline security policy for the application
 class ApplicationPolicy
   attr_reader :user, :record
 
@@ -7,15 +9,15 @@ class ApplicationPolicy
   end
 
   def index?
-    false
+    @user.admin? || @user.board_member? || @user.owns.any? || @user.unit
   end
 
   def show?
-    scope.where(:id => record.id).exists?
+    scope.where(id: record.id).exists?
   end
 
   def create?
-    false
+    @user.admin? || @user.board_member?
   end
 
   def new?
@@ -23,7 +25,7 @@ class ApplicationPolicy
   end
 
   def update?
-    false
+    @user.admin? || @user.board_member?
   end
 
   def edit?
@@ -31,13 +33,15 @@ class ApplicationPolicy
   end
 
   def destroy?
-    false
+    @user.admin? || @user.board_member?
   end
 
   def scope
     Pundit.policy_scope!(user, record.class)
   end
 
+  ##
+  # Provides a baseline security-aware scope
   class Scope
     attr_reader :user, :scope
 

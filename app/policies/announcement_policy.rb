@@ -1,3 +1,5 @@
+##
+# Handles security policy for the announcement model
 class AnnouncementPolicy < ApplicationPolicy
   def index?
     user.admin? || user.board_member? || user.unit || user.owns.any?
@@ -15,6 +17,8 @@ class AnnouncementPolicy < ApplicationPolicy
     user.admin? || user.board_member?
   end
 
+  ##
+  # Provides an activerecord scope that is security aware
   class Scope < Scope
     attr_reader :user, :scope
 
@@ -27,9 +31,8 @@ class AnnouncementPolicy < ApplicationPolicy
       if user.admin? || user.board_member?
         scope.all
       else
-        scope.where("publish_date is not null and publish_date < now()")
+        scope.where('publish_date is not null and publish_date < now()')
       end
     end
-
   end
 end
