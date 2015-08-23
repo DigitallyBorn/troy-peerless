@@ -1,11 +1,4 @@
 class AnnouncementPolicy < ApplicationPolicy
-  attr_reader :user, :model
-
-  def initialize (user, model)
-    @user = user
-    @model = model
-  end
-
   def index?
     user.admin? || user.board_member? || user.unit || user.owns.any?
   end
