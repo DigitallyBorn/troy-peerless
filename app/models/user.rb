@@ -39,6 +39,8 @@
 #  index_users_on_unit_id               (unit_id)
 #
 
+##
+# The user model
 class User < ActiveRecord::Base
   enum role: { normal: 0, admin: 1, board_member: 2 }
 
@@ -51,20 +53,20 @@ class User < ActiveRecord::Base
   belongs_to :unit
   has_and_belongs_to_many :parking_spots
   has_and_belongs_to_many :owns,
-    join_table: 'users_own_units',
-    class_name: Unit
+                          join_table: 'users_own_units',
+                          class_name: Unit
 
   after_initialize :set_default_role, if: :new_record?
 
   validates :name,
-    presence: true,
-    length: { in: 2..40 }
+            presence: true,
+            length: { in: 2..40 }
 
   validates :email,
-    uniqueness: { case_sensitive: false },
-    length: { maximum: 254 }
+            uniqueness: { case_sensitive: false },
+            length: { maximum: 254 }
 
-  default_scope -> {
+  default_scope lambda {
     order(:name)
   }
 
@@ -77,23 +79,12 @@ class User < ActiveRecord::Base
   end
 
   def self.from_omniauth(auth)
-     where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
-       user.password = Devise.friendly_token[0,20]
+    where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
+      user.password = Devise.friendly_token[0, 20]
 
-       case auth[:provider]
-       when 'facebook' then
-         user.email = auth.extra.raw_info[:email]
-         user.name = auth.extra.raw_info[:name]   # assuming the user model has a name
-         user.image = auth.extra.raw_info[:picture][:data][:url] # assuming the user model has an image
-         user.facebook_url = auth.extra.raw_info[:link]
-       when 'twitter' then
-         user.email = "#{auth.info.nickname}@twitter-users.com"
-         user.name = auth.info.name
-         user.image = auth.info.image
-         user.bio = auth.info.description
-         user.twitter_url = auth.info.urls.Twitter
-       end
-     end
+      user.auth_from_facebook(auth) if auth[:provider] == 'facebook'
+      user.auth_from_twitter(auth) if auth[:provider] == 'twitter'
+    end
   end
 
   def self.policy_class
@@ -101,11 +92,27 @@ class User < ActiveRecord::Base
   end
 
   protected
-    def password_required?
-      false
-    end
 
-    def set_default_role
-      self.role ||= :normal
-    end
+  def password_required?
+    false
+  end
+
+  def set_default_role
+    self.role ||= :normal
+  end
+
+  def auth_from_facebook(auth)
+    self.email = auth.extra.raw_info[:email]
+    self.name = auth.extra.raw_info[:name]
+    self.image = auth.extra.raw_info[:picture][:data][:url]
+    self.facebook_url = auth.extra.raw_info[:link]
+  end
+
+  def self.auth_from_twitter(auth)
+    self.email = "#{auth.info.nickname}@twitter-selfs.com"
+    self.name = auth.info.name
+    self.image = auth.info.image
+    self.bio = auth.info.description
+    self.twitter_url = auth.info.urls.Twitter
+  end
 end

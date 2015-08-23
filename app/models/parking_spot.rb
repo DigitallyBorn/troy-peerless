@@ -12,6 +12,8 @@
 #  index_parking_spots_on_number  (number) UNIQUE
 #
 
+##
+# The parking spot model
 class ParkingSpot < ActiveRecord::Base
   has_and_belongs_to_many :users
 end

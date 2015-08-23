@@ -15,7 +15,8 @@
 #  index_announcements_on_user_id  (user_id)
 #
 
+##
+# The announcement model
 class Announcement < ActiveRecord::Base
   belongs_to :user
-
 end

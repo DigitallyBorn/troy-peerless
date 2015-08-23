@@ -12,6 +12,8 @@
 #  updated_at  :datetime         not null
 #
 
+##
+# The event model
 class Event < ActiveRecord::Base
   validates :title, presence: true
   validates :date, presence: true

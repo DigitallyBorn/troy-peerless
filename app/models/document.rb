@@ -17,6 +17,8 @@
 #  index_documents_on_user_id  (user_id)
 #
 
+##
+# The document model
 class Document < ActiveRecord::Base
   enum category: [:general, :hoa_announcements, :owners_resources]
 

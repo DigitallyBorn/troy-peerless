@@ -13,10 +13,12 @@
 #  index_units_on_number  (number) UNIQUE
 #
 
+##
+# The unit model
 class Unit < ActiveRecord::Base
   has_and_belongs_to_many :owners,
-    join_table: 'users_own_units',
-    class_name: User
+                          join_table: 'users_own_units',
+                          class_name: User
 
   has_many :users
 end
