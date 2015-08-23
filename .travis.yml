@@ -1,7 +1,6 @@
 language: ruby
 rvm:
  - "2.2.2"
- - rbx
 services:
  - redis-server
 before_script:
