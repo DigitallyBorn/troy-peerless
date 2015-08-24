@@ -1,0 +1,6 @@
+<%= link_to 'New Issue', new_issue_path, class: 'btn btn-default btn-lg pull-right' %>
+<h1>Open Issues</h1>
+
+<% if @issues.empty? %>
+<i>There are no current issues.</i>
+<% end %>

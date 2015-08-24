@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150823185329) do
+ActiveRecord::Schema.define(version: 20150824222624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,21 @@ ActiveRecord::Schema.define(version: 20150823185329) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "issues", force: :cascade do |t|
+    t.integer  "user_id",                          null: false
+    t.integer  "unit_id"
+    t.string   "title",                            null: false
+    t.text     "description",                      null: false
+    t.integer  "status",               default: 0, null: false
+    t.integer  "scope",                default: 0, null: false
+    t.date     "estimated_completion"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  add_index "issues", ["unit_id"], name: "index_issues_on_unit_id", using: :btree
+  add_index "issues", ["user_id"], name: "index_issues_on_user_id", using: :btree
 
   create_table "parking_spots", force: :cascade do |t|
     t.integer  "number"
@@ -112,13 +127,9 @@ ActiveRecord::Schema.define(version: 20150823185329) do
     t.integer "unit_id", null: false
   end
 
-  create_table "widgets", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   add_foreign_key "announcements", "users"
   add_foreign_key "documents", "users"
+  add_foreign_key "issues", "units"
+  add_foreign_key "issues", "users"
   add_foreign_key "users", "units"
 end

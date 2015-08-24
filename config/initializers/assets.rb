@@ -15,5 +15,6 @@ Rails.application.config.assets.precompile += %w(
   events.css
   documents.css
   announcements.css
+  issues.css
   font-awesome.css
   admin/users.css )

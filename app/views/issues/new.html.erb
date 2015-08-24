@@ -1,0 +1,12 @@
+<h1>Open an issue</h1>
+  <%= simple_form_for @issue do |f| %>
+  <%= f.input :unit_id,
+              collection: policy_scope(Unit),
+              label_method: Proc.new {|u| "Apartment #{u.number}" },
+              include_blank: false,
+              label: 'Apartment' %>
+  <%= f.input :title %>
+  <%= f.input :description,
+              as: :text %>
+  <%= f.submit class: 'btn btn-lg btn-block btn-primary pull-right'%>
+<% end %>
