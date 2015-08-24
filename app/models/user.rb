@@ -102,7 +102,7 @@ class User < ActiveRecord::Base
     self.facebook_url = auth.extra.raw_info[:link]
   end
 
-  def self.auth_from_twitter(auth)
+  def auth_from_twitter(auth)
     self.email = "#{auth.info.nickname}@twitter-selfs.com"
     self.name = auth.info.name
     self.image = auth.info.image
