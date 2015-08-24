@@ -3,6 +3,7 @@
 
 <div class="row">
   <% @events.each do |event| %>
+  <% cache event do %>
     <div class="event-card col-md-12">
       <% if policy(event).update? %>
         <span class="action-buttons pull-right">
@@ -29,5 +30,6 @@
         </div>
       <% end %>
     </div>
+    <% end %>
   <% end %>
 </div>

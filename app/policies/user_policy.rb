@@ -2,6 +2,10 @@
 # Handles security policy for the user model
 class UserPolicy < ApplicationPolicy
   def default?
+    @user.admin? || @user.board_member? || @user.unit || @user.owns.any?
+  end
+
+  def update?
     @user.admin? || @user.board_member? || @user == @record
   end
 
@@ -11,7 +15,6 @@ class UserPolicy < ApplicationPolicy
 
   alias_method :index?, :default?
   alias_method :show?, :default?
-  alias_method :update?, :default?
 
   def permitted_attributes
     fields = [:name, :email, :shared_email, :phone, :occupation, :bio, :phone,

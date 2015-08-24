@@ -6,7 +6,6 @@ gem 'rails', '4.2.3'
 gem 'aws-sdk', '~> 2.1.14'
 gem 'bootswatch-rails'
 gem 'bootstrap-sass'
-gem 'puma'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'devise'
 gem 'draper'
@@ -30,8 +29,13 @@ group :development do
   gem 'web-console', '~> 2.0'
 end
 
+group :development, :production do
+  gem 'puma'
+end
+
 group :test, :development do
   gem 'bullet'
+  gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'foreman'
