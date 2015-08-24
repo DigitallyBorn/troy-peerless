@@ -73,7 +73,7 @@
     <%= yield %>
   </div>
 
-  <% if current_user.admin? || current_user.board_member? %>
+  <% if current_user && (current_user.admin? || current_user.board_member?) %>
   <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
       <div class="navbar-header">
