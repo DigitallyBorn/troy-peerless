@@ -27,7 +27,7 @@
     </div>
   </div>
 
-  <% if @roommates.any? %>
+  <% if @roommates && @roommates.any? %>
   <h3>Lives with</h3>
   <%= render partial:'residents/residents', object: @roommates %>
   <% end %>

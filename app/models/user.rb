@@ -74,6 +74,10 @@ class User < ActiveRecord::Base
     joins(:unit)
   end
 
+  def self.board
+    where(role: User.roles[:board_member])
+  end
+
   def self.roommates(user_id, unit_id)
     where(unit_id: unit_id).where.not(id: user_id)
   end

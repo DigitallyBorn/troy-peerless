@@ -17,4 +17,8 @@ class UserDecorator < Draper::Decorator
   def lives_in
     "Lives in #{object.unit.number} (on #{object.unit.floor.ordinalize})" if object.unit
   end
+
+  def phone
+    number_to_phone object.phone
+  end
 end
