@@ -95,16 +95,6 @@ class User < ActiveRecord::Base
     UserPolicy
   end
 
-  protected
-
-  def password_required?
-    false
-  end
-
-  def set_default_role
-    self.role ||= :normal
-  end
-
   def auth_from_facebook(auth)
     self.email = auth.extra.raw_info[:email]
     self.name = auth.extra.raw_info[:name]
@@ -118,5 +108,15 @@ class User < ActiveRecord::Base
     self.image = auth.info.image
     self.bio = auth.info.description
     self.twitter_url = auth.info.urls.Twitter
+  end
+
+  protected
+
+  def password_required?
+    false
+  end
+
+  def set_default_role
+    self.role ||= :normal
   end
 end
