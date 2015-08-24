@@ -10,10 +10,13 @@ Rails.application.routes.draw do
   namespace :admin do
     root 'home#index'
 
-    resources :users do
+    resources :users, except: [ :show ] do
       member do
         post 'unit' => 'users#add_unit'
         delete 'unit/:unit_id' => 'users#remove_unit', as: 'destroy_unit'
+        patch 'make_admin' => 'users#make_admin'
+        patch 'make_board_member' => 'users#make_board_member'
+        patch 'make_normal' => 'users#make_normal'
       end
     end
     # get 'users' => 'users#index'

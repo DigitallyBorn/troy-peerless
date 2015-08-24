@@ -1,4 +1,4 @@
-class ResidentDecorator < Draper::Decorator
+class Admin::UserDecorator < Draper::Decorator
   delegate_all
 
   # Define presentation-specific methods here. Helpers are accessed through
@@ -11,7 +11,7 @@ class ResidentDecorator < Draper::Decorator
   #   end
 
   def phone
-    number_to_phone object.phone
+    h.number_to_phone object.phone
   end
 
 end

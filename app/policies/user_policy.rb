@@ -10,7 +10,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def change_role?
-    @user.admin? && @user.id != @record.id
+    (@user.admin? || @user.board_member?) && @user.id != @record.id
   end
 
   alias_method :index?, :default?

@@ -1,5 +1,6 @@
 class ResidentsController < ApplicationController
   decorates_assigned :resident
+  decorates_assigned :residents
   before_action :authenticate_user!
   before_action :set_resident, only: [:show, :edit, :update, :destroy]
 
