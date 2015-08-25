@@ -12,6 +12,8 @@
 #  estimated_completion :date
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  comment_count        :integer          default(0)
+#  event_count          :integer          default(0)
 #
 # Indexes
 #
@@ -23,6 +25,13 @@ class Issue < ActiveRecord::Base
   belongs_to :user
   belongs_to :unit
 
+  has_many :issue_events
+  has_many :issue_comments
+
   enum status: { open: 0, closed: 1 }
   enum scope: { for_owner: 0, for_board: 1, for_building: 2 }
+
+  validates :user, :unit, :status, presence: true
+  validates :title, presence: true, length: { minimum: 10 }
+  validates :description, presence: true, length: { minimum: 10 }
 end

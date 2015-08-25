@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150824222624) do
+ActiveRecord::Schema.define(version: 20150825021305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,30 @@ ActiveRecord::Schema.define(version: 20150824222624) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "issue_comments", force: :cascade do |t|
+    t.integer  "issue_id",                   null: false
+    t.integer  "user_id",                    null: false
+    t.text     "body",                       null: false
+    t.boolean  "is_deleted", default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "issue_comments", ["issue_id"], name: "index_issue_comments_on_issue_id", using: :btree
+  add_index "issue_comments", ["user_id"], name: "index_issue_comments_on_user_id", using: :btree
+
+  create_table "issue_events", force: :cascade do |t|
+    t.integer  "issue_id",   null: false
+    t.integer  "user_id",    null: false
+    t.integer  "type",       null: false
+    t.string   "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "issue_events", ["issue_id"], name: "index_issue_events_on_issue_id", using: :btree
+  add_index "issue_events", ["user_id"], name: "index_issue_events_on_user_id", using: :btree
+
   create_table "issues", force: :cascade do |t|
     t.integer  "user_id",                          null: false
     t.integer  "unit_id"
@@ -60,6 +84,8 @@ ActiveRecord::Schema.define(version: 20150824222624) do
     t.date     "estimated_completion"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.integer  "comment_count",        default: 0
+    t.integer  "event_count",          default: 0
   end
 
   add_index "issues", ["unit_id"], name: "index_issues_on_unit_id", using: :btree
@@ -129,6 +155,10 @@ ActiveRecord::Schema.define(version: 20150824222624) do
 
   add_foreign_key "announcements", "users"
   add_foreign_key "documents", "users"
+  add_foreign_key "issue_comments", "issues"
+  add_foreign_key "issue_comments", "users"
+  add_foreign_key "issue_events", "issues"
+  add_foreign_key "issue_events", "users"
   add_foreign_key "issues", "units"
   add_foreign_key "issues", "users"
   add_foreign_key "users", "units"

@@ -12,6 +12,8 @@
 #  estimated_completion :date
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  comment_count        :integer          default(0)
+#  event_count          :integer          default(0)
 #
 # Indexes
 #
