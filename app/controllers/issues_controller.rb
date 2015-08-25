@@ -5,7 +5,7 @@ class IssuesController < ApplicationController
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
 
   def index
-    @issues = policy_scope(Issue)
+    @issues = policy_scope(Issue).order(updated_at: :desc)
   end
 
   def show
@@ -38,7 +38,7 @@ class IssuesController < ApplicationController
   protected
 
   def set_issue
-    @issue = Issue.policy_scope.find(params[:id])
+    @issue = policy_scope(Issue).find(params[:id])
   end
 
   def show_params
