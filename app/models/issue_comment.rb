@@ -17,7 +17,7 @@
 #
 
 class IssueComment < ActiveRecord::Base
-  belongs_to :issue, count_cache: :comment_count
+  belongs_to :issue, counter_cache: :comment_count, touch: true
   belongs_to :user
 
   validates :issue, :user, :body, presence: true

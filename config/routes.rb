@@ -22,10 +22,6 @@ Rails.application.routes.draw do
         patch 'make_normal' => 'users#make_normal'
       end
     end
-    # get 'users' => 'users#index'
-    # get 'users/:id' => 'users#show'
-    # post 'users/:id' => 'nowhere#index'
-    # put 'users/:id/'
 
     get 'documents' => 'nowhere#index'
     get 'documents/:id' => 'nowhere#index'
@@ -59,7 +55,10 @@ Rails.application.routes.draw do
   end
 
   resources :issues do
-
+    member do
+      post 'comment' => 'issues#add_comment'
+      get 'close' => 'issues#close'
+    end
   end
 
   # Example of regular route:

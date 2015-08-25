@@ -1,0 +1,18 @@
+<ul class="list-group">
+  <% events.each do |event| %>
+    <% if event.is_a? IssueComment %>
+      <%= render partial: 'comment', object: event %>
+    <% end %>
+    <% if event.is_a? IssueEvent %>
+      <%= render partial: 'event', object: event %>
+    <% end %>
+  <% end %>
+  <li class="list-group-item">
+    <%= simple_form_for IssueComment.new, url: comment_issue_path(issue.id) do |f| %>
+    <%= f.input :body %>
+    <div class="clearfix">
+      <%= f.button :submit, class: 'pull-right' %>
+    </div>
+    <% end %>
+  </li>
+</ul>

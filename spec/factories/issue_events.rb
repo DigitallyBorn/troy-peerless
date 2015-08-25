@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  issue_id   :integer          not null
 #  user_id    :integer          not null
-#  type       :integer          not null
+#  event_type :integer          not null
 #  message    :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

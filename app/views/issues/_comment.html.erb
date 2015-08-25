@@ -1,0 +1,10 @@
+<% cache comment do %>
+<li class="list-group-item">
+  <h4 class="list-group-item-heading">
+    <%= comment.user.name %>
+    <small><%= comment.created_at %></small>
+  </h4>
+
+  <p class="list-group-item-text"><%= comment.body %></p>
+</li>
+<% end %>

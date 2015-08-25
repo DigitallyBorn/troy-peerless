@@ -25,13 +25,22 @@ class Issue < ActiveRecord::Base
   belongs_to :user
   belongs_to :unit
 
-  has_many :issue_events
-  has_many :issue_comments
+  has_many :events, class_name: 'IssueEvent'
+  has_many :comments, class_name: 'IssueComment'
 
   enum status: { open: 0, closed: 1 }
   enum scope: { for_owner: 0, for_board: 1, for_building: 2 }
 
   validates :user, :unit, :status, presence: true
-  validates :title, presence: true, length: { minimum: 10 }
+  validates :title, presence: true, length: { minimum: 5 }
   validates :description, presence: true, length: { minimum: 10 }
+
+  def close!(user)
+    self.closed!
+
+    IssueEvent.create issue: self,
+                      user: user,
+                      event_type: IssueEvent.event_types[:closed],
+                      message: "#{user.name} closed the issue."
+  end
 end

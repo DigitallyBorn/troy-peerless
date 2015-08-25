@@ -3,7 +3,7 @@ class CreateIssueEvents < ActiveRecord::Migration
     create_table :issue_events do |t|
       t.references :issue, index: true, foreign_key: true, null: false
       t.references :user, index: true, foreign_key: true, null: false
-      t.integer :type, null: false
+      t.integer :event_type, null: false
       t.string :message
 
       t.timestamps null: false

@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  issue_id   :integer          not null
 #  user_id    :integer          not null
-#  type       :integer          not null
+#  event_type :integer          not null
 #  message    :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -17,10 +17,10 @@
 #
 
 class IssueEvent < ActiveRecord::Base
-  belongs_to :issue, count_cache: :event_count
+  belongs_to :issue, counter_cache: :event_count, touch: true
   belongs_to :user
 
-  enum type: { closed: 0, reopened: 1, set_completion_date: 2 }
+  enum event_type: { closed: 0, reopened: 1, set_completion_date: 2 }
 
-  validates :issue, :user, :type, presence: true
+  validates :issue, :user, :event_type, presence: true
 end

@@ -22,4 +22,20 @@ class IssuePolicy < ApplicationPolicy
       [ :status, :estimated_completion ]
     end
   end
+
+  def add_comment?
+    record.user == user ||
+    user.admin? ||
+    user.board_member? ||
+    record.unit.owners.include?(user) ||
+    record.unit.users.include?(user)
+  end
+
+  def close?
+    record.user == user ||
+    user.admin? ||
+    user.board_member? ||
+    record.unit.owners.include?(user) ||
+    record.unit.users.include?(user)
+  end
 end
