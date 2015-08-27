@@ -110,6 +110,10 @@ class User < ActiveRecord::Base
     self.twitter_url = auth.info.urls.Twitter
   end
 
+  def owner_of?(record)
+    record.user == self
+  end
+
   protected
 
   def password_required?

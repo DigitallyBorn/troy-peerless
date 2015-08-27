@@ -1,0 +1,32 @@
+<%= link_to 'New Issue', new_issue_path, class: 'btn btn-default btn-lg pull-right' %>
+<h1>Open Issues</h1>
+
+<% if @issues.empty? %>
+<i>There are no current issues.</i>
+<% end %>
+
+<div class="row">
+
+  <% issues.each do |issue| %>
+  <div class="panel panel-<%= issue.status_color %>">
+    <div class="panel-heading">
+    <div class="panel-title">
+      <%= issue.title %>
+      <span class="pull-right">Last updated <%= issue.updated_at %> ago</span>
+    </div>
+    </div>
+    <div class="panel-body">
+      <div class="text-center">
+        <%= issue.estimated_completion_text %>
+      </div>
+      <%= issue.description %>
+    </div>
+    <div class="panel-footer">
+      <div class="clearfix">
+        3 <i class="fa fa-comments"></i>
+        <%= link_to 'View issue', issue, class: 'pull-right' %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
